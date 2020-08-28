@@ -1,5 +1,5 @@
-from flask import Flask, redirect, render_template, request, url_for
-from flask_socketio import SocketIO
+from flask import Flask, redirect, render_template, request, url_for, session
+from flask_socketio import SocketIO, join_room, leave_room
 from config import db_conn
 import psycopg2
 import json
@@ -14,5 +14,16 @@ params = db_conn()
 conn = psycopg2.connect(**params)
 cursor = conn.cursor()
 
+@app.route('/', methods = ['GET','POST'])
+def home():
+    return render_template('home.html')
+
+
+#-------------------socket handle------------------#
+@io.on('home_connection')
+def connected():
+    session['location'] = 'home'
+    print('a client has connected to home')
+
 if __name__ == '__main__':
-    io.run(app)
+    io.run(app, debug = True)
