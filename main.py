@@ -2,9 +2,8 @@ from flask import Flask, redirect, render_template, request, url_for, session
 from flask_socketio import SocketIO, join_room, leave_room
 import sys
 import json
-sys.path.append('secret_chat\db_tools\methods.py')
-from db_tools.methods import db_methods
-
+from db.methods import db_methods
+from db.config import config
 with open('auth.json') as auth:
     secret = json.load(auth)
 #------------------flask routes----------------------#
@@ -12,8 +11,7 @@ with open('auth.json') as auth:
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secret['secret_key']
 io = SocketIO(app)
-execute = db_methods()
-
+execute = db_methods(config)
 @app.route('/', methods = ['GET','POST'])
 def home():
     return render_template('home.html')

@@ -1,12 +1,8 @@
 import psycopg2
-import sys
-
-sys.path.append('secret_chat\config.py')
-from config import db_params
 #https://hackersandslackers.com/psycopg2-postgres-python
 class db_methods():
-    def __init__(self):
-        self.config = db_params()
+    def __init__(self,config):
+        self.config = config()
         self.conn = None
 
     def connect(self):

@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 
-def db_params(filename='database.ini', section='db_config'):
+#recretrieves postgres configuration stored in database.ini
+def config(filename='database.ini', section='db_config'):
     parser = ConfigParser()
     parser.read(filename)
     db = {}
