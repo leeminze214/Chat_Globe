@@ -1,7 +1,6 @@
-
 from configparser import ConfigParser
 
-def db_conn(filename='database.ini', section='db_config'):
+def db_params(filename='database.ini', section='db_config'):
     parser = ConfigParser()
     parser.read(filename)
     db = {}
